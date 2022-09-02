@@ -1,4 +1,5 @@
 import './style/App.css';
+import './style/TextEditor.css'
 import React, { useRef } from 'react';
 import TextEditor from './components/TextEditor.js';
 
