@@ -1,4 +1,4 @@
-import './App.css';
+import './style/App.css';
 import React, { useRef } from 'react';
 import TextEditor from './components/TextEditor.js';
 

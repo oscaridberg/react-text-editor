@@ -1,6 +1,8 @@
 import { Editor } from '@tinymce/tinymce-react';
 import React, { useRef } from 'react';
 import config from '../config/config.json';
+// import ToolBar from './ToolBar';
+import { useState } from 'react';
 
 
 export default function TextEditor() {
@@ -10,9 +12,15 @@ export default function TextEditor() {
         console.log(editorRef.current.getContent());
       }
     };
+
+
     return (
-      <div className="textEditor">
+      <div className="editorContainer">
+        <div className='toolBar'>
+          <button className='saveButton' onClick={log}>Save</button>
+        </div>
         <Editor
+          className='textEditor'
           apiKey={config.api_key}
           onInit={(evt, editor) => editorRef.current = editor}
           initialValue="<p>This is the initial content of the editor.</p>"
@@ -31,7 +39,6 @@ export default function TextEditor() {
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
           }}
         />
-        <button onClick={log}>Log editor content</button>
       </div>
     );
   }
