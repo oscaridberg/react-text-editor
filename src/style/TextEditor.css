@@ -49,3 +49,18 @@
     -webkit-box-shadow: inset 0 0 1px #000000;
     box-shadow:         inset 0 0 1px #000000;
 }
+
+.documentTitle {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.titleField {
+    width: 50%;
+    height: 2rem;
+    text-align: center;
+}
