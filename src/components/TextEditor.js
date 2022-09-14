@@ -61,6 +61,7 @@ export default function TextEditor() {
         <div className='toolBar'>
           <button className='saveButton' onClick={log}>Save</button>
           <select
+          class='docDropDown'
           onChange={fetchDoc}
           >
           <option id='docChoice' value="-99" key="0">Choose a document</option>
