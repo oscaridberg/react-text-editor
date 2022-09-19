@@ -6,8 +6,8 @@ import { useState } from 'react';
 
 
 
-export default function TextEditor() {
-    const [docs, setDocs] = useState([]);
+export default function TextEditor({docs, setDocs}) {
+    // const [docs, setDocs] = useState([]);
     const [currentDoc, setCurrentDoc] = useState([]);
 
     const editorRef = useRef(null);
@@ -61,7 +61,7 @@ export default function TextEditor() {
         <div className='toolBar'>
           <button className='saveButton' onClick={log}>Save</button>
           <select
-          class='docDropDown'
+          className='docDropDown'
           onChange={fetchDoc}
           >
           <option id='docChoice' value="-99" key="0">Choose a document</option>
@@ -70,7 +70,7 @@ export default function TextEditor() {
         </div>
 
       <form className='documentTitle'>
-        <label for="documentTitle">Document Title</label>
+        <label htmlFor="documentTitle">Document Title</label>
         <input type="text" id="documentTitle" className='titleField' defaultValue={currentDoc.title}></input>
       </form>
 

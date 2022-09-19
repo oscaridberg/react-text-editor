@@ -1,13 +1,17 @@
 import './style/App.css';
 import './style/TextEditor.css'
-import React, { useRef } from 'react';
+import React from 'react';
 import TextEditor from './components/TextEditor.js';
+import { useState } from 'react';
 
 
 function App() {
+  const [docs, setDocs] = useState([]);
+  const [currentDoc, setCurrentDoc] = useState([]);
+
   return (
     <div className="App">
-      <TextEditor/>
+      <TextEditor docs={docs} setDocs={setDocs}/>
     </div>
   );
 }
