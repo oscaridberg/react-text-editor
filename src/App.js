@@ -8,12 +8,12 @@ import config from './config/config.json';
 
 
 let socket;
-const SERVER_URL = "ws://localhost:1337";
-
+const SERVER_URL = config.base_url;
 function App() {
   const [docs, setDocs] = useState([]);
   const [currentDoc, setCurrentDoc] = useState([]);
 
+  console.log('test');
   useEffect(() => {
     // console.log(currentDoc.content);
     
@@ -22,7 +22,7 @@ function App() {
   useEffect(() => {
     socket = io(SERVER_URL);
     socket.emit("create", currentDoc["_id"]);
-    // console.log(currentDoc.content);
+    console.log(currentDoc.content);
 
     let data = {
       _id: currentDoc['_id'],
@@ -33,7 +33,7 @@ function App() {
     socket.emit("doc", data);
 
     socket.on("doc", (data) => {
-      // console.log(data.html);
+      console.log(data.html);
       if (currentDoc['content'] != data.html) {
         setCurrentDoc({
           _id: currentDoc._id,
@@ -56,25 +56,3 @@ function App() {
 }
 
 export default App;
-
-// function handleChange(html, text) {
-//   if (updateCurrentDocOnChange) {
-//       const copy = Object.assign({}, currentDoc);
-
-//       copy.html = html;
-
-//       setCurrentDoc(copy);
-//   }
-
-//   updateCurrentDocOnChange = true;
-// }
-
-// function setEditorContent(content, triggerChange) {
-//     let element = document.querySelector("trix-editor");
-
-//     updateCurrentDocOnChange = triggerChange;
-//     element.value = "";
-//     element.editor.setSelectedRange([0, 0]);
-//     updateCurrentDocOnChange = triggerChange;
-//     element.editor.insertHTML(content);
-// }
