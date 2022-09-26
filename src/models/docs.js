@@ -11,12 +11,13 @@ const docs = {
     getOneDoc: async function getOneDoc (title) {
         const response = await fetch(`${config.base_url}/documents`);
         const result = await response.json();
-        let currentDoc = "";
-        const foundDoc = result.forEach(function (arrayitem) {
+        let currentDoc = {};
+        result.forEach(function (arrayitem) {
             if (arrayitem.title === title) {
                 currentDoc =  arrayitem;
             }
-        })
+        });
+        
         return currentDoc;
     }
 }

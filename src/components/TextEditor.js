@@ -2,14 +2,13 @@ import { Editor } from '@tinymce/tinymce-react';
 import React, { useEffect, useRef } from 'react';
 import config from '../config/config.json';
 import docsModel from '../models/docs';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 
 
-export default function TextEditor({docs, setDocs}) {
+export default function TextEditor({currentDoc, setCurrentDoc, docs, setDocs}) {
     // const [docs, setDocs] = useState([]);
-    const [currentDoc, setCurrentDoc] = useState([]);
-
+    // const [currentDoc, setCurrentDoc] = useState([]);
     const editorRef = useRef(null);
     
     const log = () => {
@@ -34,23 +33,18 @@ export default function TextEditor({docs, setDocs}) {
       })();
     }, []);
 
-
-    // useEffect((event) => {
-    //   (async () => {
-    //       const title = event.target.value;
-
-    //       const currentDoc = await docsModel.getOneDoc(title);
-
-    //       setCurrentDoc(currentDoc);
-    //       editorRef.current.setContent(currentDoc.content);
-
-    //   })();
-    // }, []);
-
     async function fetchDoc(event) {
         const title = event.target.value;
-        const currentDoc = await docsModel.getOneDoc(title);
-        setCurrentDoc(currentDoc);
+        const doc = await docsModel.getOneDoc(title);
+        setCurrentDoc(doc);
+    };
+
+    async function handleKeyUp(event) {
+        setCurrentDoc({
+          _id: currentDoc._id,
+          title: currentDoc.title, 
+          content: editorRef.current.getContent()
+        });
     };
 
  
@@ -78,7 +72,8 @@ export default function TextEditor({docs, setDocs}) {
           <Editor
             apiKey={config.api_key}
             onInit={(evt, editor) => editorRef.current = editor}
-            initialValue={currentDoc.content}
+            value={currentDoc['content']}
+            onKeyUp={handleKeyUp}
             init={{
               height: 500,
               menubar: false,
