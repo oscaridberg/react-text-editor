@@ -6,37 +6,15 @@ import docsModel from '../models/docs';
 
 
 
-export default function TextEditor({currentDoc, setCurrentDoc, docs, setDocs}) {
-    // const [docs, setDocs] = useState([]);
-    // const [currentDoc, setCurrentDoc] = useState([]);
+export default function TextEditor({currentDoc, setCurrentDoc, docs, fetchDoc, saveDoc}) {
     const editorRef = useRef(null);
     
-    const log = () => {
+    const save = () => {
       if (editorRef.current) {
         const title = document.getElementById('documentTitle').value;
         const content = editorRef.current.getContent();
-        const request = {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ title: title, content: content })
-        };
-
-        fetch(`${config.base_url}/documents`, request)
-          .then(response => response.json());
+        saveDoc(title, content);
       }
-    };
-
-    useEffect(() => {
-      (async () => {
-          const allDocs = await docsModel.getAllDocs();
-          setDocs(allDocs);
-      })();
-    }, []);
-
-    async function fetchDoc(event) {
-        const title = event.target.value;
-        const doc = await docsModel.getOneDoc(title);
-        setCurrentDoc(doc);
     };
 
     async function handleKeyUp(event) {
@@ -51,15 +29,20 @@ export default function TextEditor({currentDoc, setCurrentDoc, docs, setDocs}) {
 
     return (
       <div className="editorContainer">
-        <h1 className='appTitle'>React Text Editor</h1>
         <div className='toolBar'>
-          <button className='saveButton' onClick={log}>Save</button>
+          <button className='saveButton' onClick={save}>Save</button>
           <select
           className='docDropDown'
           onChange={fetchDoc}
           >
           <option id='docChoice' value="-99" key="0">Choose a document</option>
-          {docs.map((doc, index) => <option value={doc.title} key={index}>{doc.title}</option>)}
+          {docs.length ?
+            <>
+            {docs.map((doc, index) => <option value={doc.title} key={index}>{doc.title}</option>)}
+            </>
+          :
+          <option></option>
+          }
           </select>
         </div>
 
