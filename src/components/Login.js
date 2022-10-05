@@ -25,14 +25,16 @@ export default function Login({setToken, user, setUser}) {
     }
 
     return (
-        <>
+        <div className='loginContainer'>
         <h1>Login or register</h1>
-        <input type="email" name="email" onChange={changeHandler} />
-        <input type="password" name="password" onChange={changeHandler} />
+            <p className='loginTitle'>Email:</p>
+            <input type="email" name="email" onChange={changeHandler} />
 
-        <button onClick={register} >Register</button>
-        <button onClick={login} >Login</button>
+            <p className='loginTitle'>Password:</p>
+            <input type="password" name="password" onChange={changeHandler} />
 
-        </>
+            <button className='registerButton' onClick={register} >Register</button>
+            <button className='loginButton' onClick={login} >Login</button>
+        </div>
     );
 }
