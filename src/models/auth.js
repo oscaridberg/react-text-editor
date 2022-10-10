@@ -1,4 +1,6 @@
-const baseUrl = "http://localhost:1337";
+import config from '../config/config.json';
+
+const baseUrl = config.base_url;
 
 
 const auth = {
