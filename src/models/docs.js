@@ -2,14 +2,31 @@ import config from '../config/config.json';
 
 
 const docs = {
-    getAllDocs: async function getAllDocs (token, user) {
-        const response = await fetch(`${config.base_url}/documents`, {
+    // getAllDocs: async function getAllDocs (token, user) {
+    //     const response = await fetch(`${config.base_url}/documents`, {
+    //         headers: {
+    //             "x-access-token": token,
+    //         },
+    //     });
+    //     const result = await response.json();
+    //     console.log(result);
+    //     const filteredRes = await docs.filterDocs(result, user);
+    //     return filteredRes;
+    // },
+
+    getAllDocs: async function getAllDocs (user) {
+        const response = await fetch(`${config.base_url}/graphql`, {
+            method: 'POST',
+            body: JSON.stringify({ query: "{ documents { title content authUser} }" }),
             headers: {
-                "x-access-token": token,
+                'Content-Type': 'application/json',
+                'Accept': 'aaplication/json'
             },
-        });
+        })
+
         const result = await response.json();
-        const filteredRes = await docs.filterDocs(result, user);
+        console.log(user);
+        const filteredRes = await docs.filterDocs(result.data.documents, user);
         return filteredRes;
     },
 
@@ -50,8 +67,9 @@ const docs = {
     },
 
     filterDocs: async function filterDocs(docs, user) {
+        // console.log(user);
+        // console.log(docs[0].authUser === user.email);
         const filteredDocs = docs.filter(doc => doc.authUser === user.email);
-
         return filteredDocs
     }
 }

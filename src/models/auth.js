@@ -13,7 +13,6 @@ const auth = {
         });
 
         const result = await response.json();
-
         return result;
     },
 

@@ -15,6 +15,7 @@ const SERVER_URL = config.base_url;
 // "base_url": "https://jsramverk-editor-osid15.azurewebsites.net/"
 
 
+
 function App() {
   const [docs, setDocs] = useState([]);
   const [currentDoc, setCurrentDoc] = useState([]);
@@ -23,7 +24,7 @@ function App() {
 
 
   async function getAllDocs() {
-    const allDocs = await docsModel.getAllDocs(token, user);
+    const allDocs = await docsModel.getAllDocs(user);
     setDocs(await allDocs);
   };
 
