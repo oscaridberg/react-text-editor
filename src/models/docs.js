@@ -25,7 +25,6 @@ const docs = {
         })
 
         const result = await response.json();
-        console.log(user);
         const filteredRes = await docs.filterDocs(result.data.documents, user);
         return filteredRes;
     },
