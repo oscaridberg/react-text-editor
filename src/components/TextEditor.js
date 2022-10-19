@@ -25,12 +25,16 @@ export default function TextEditor({currentDoc, setCurrentDoc, docs, fetchDoc, s
         });
     };
 
- 
+    function downloadDoc () {
+      const options = editorRef.current.ui.registry.getAll().menuItems
+      options.print.onAction();
+    };
 
     return (
       <div className="editorContainer">
         <div className='toolBar'>
           <button className='saveButton' onClick={save}>Save</button>
+          <button className='saveButton' onClick={downloadDoc}>Print</button>
           <select
           className='docDropDown'
           onChange={fetchDoc}
