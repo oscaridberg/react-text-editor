@@ -8,6 +8,7 @@ import { io } from "socket.io-client";
 import config from './config/config.json';
 import authModel from './models/auth';
 import docsModel from './models/docs';
+import Email from './components/Email'
 
 
 let socket;
@@ -21,6 +22,10 @@ function App() {
   const [currentDoc, setCurrentDoc] = useState([]);
   const [token, setToken] = useState('');
   const [user, setUser] = useState({});
+  const [popup, setPopup] = useState(false);
+  const [code, setCode] = useState(false);
+
+
 
 
   async function getAllDocs() {
@@ -77,10 +82,13 @@ function App() {
       <h1 className='appTitle'>React Text Editor</h1>
       {token ? 
       <>
-       <TextEditor currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} docs={docs} fetchDoc={fetchDoc} saveDoc={saveDoc}/>
+       <TextEditor code={code} setCode={setCode} currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} docs={docs} fetchDoc={fetchDoc} saveDoc={saveDoc} setPopup={setPopup} />
       </>
       :
       <Login setToken={setToken} user={user} setUser={setUser} />}
+
+      {popup ? <Email setPopup={setPopup} /> : null}
+
     </div>
   );
 }

@@ -2,20 +2,12 @@ import { Editor } from '@tinymce/tinymce-react';
 import React, { useEffect, useRef } from 'react';
 import config from '../config/config.json';
 import docsModel from '../models/docs';
-// import { useState } from 'react';
+import { useState } from 'react';
+import ToolBar from './ToolBar';
 
 
-
-export default function TextEditor({currentDoc, setCurrentDoc, docs, fetchDoc, saveDoc}) {
+export default function TextEditor({code, setCode, currentDoc, setCurrentDoc, docs, fetchDoc, saveDoc, setPopup}) {
     const editorRef = useRef(null);
-    
-    const save = () => {
-      if (editorRef.current) {
-        const title = document.getElementById('documentTitle').value;
-        const content = editorRef.current.getContent();
-        saveDoc(title, content);
-      }
-    };
 
     async function handleKeyUp(event) {
         setCurrentDoc({
@@ -25,30 +17,9 @@ export default function TextEditor({currentDoc, setCurrentDoc, docs, fetchDoc, s
         });
     };
 
-    function downloadDoc () {
-      const options = editorRef.current.ui.registry.getAll().menuItems
-      options.print.onAction();
-    };
-
     return (
       <div className="editorContainer">
-        <div className='toolBar'>
-          <button className='saveButton' onClick={save}>Save</button>
-          <button className='saveButton' onClick={downloadDoc}>Print</button>
-          <select
-          className='docDropDown'
-          onChange={fetchDoc}
-          >
-          <option id='docChoice' value="-99" key="0">Choose a document</option>
-          {docs.length ?
-            <>
-            {docs.map((doc, index) => <option value={doc.title} key={index}>{doc.title}</option>)}
-            </>
-          :
-          <option></option>
-          }
-          </select>
-        </div>
+        <ToolBar code={code} setCode={setCode} editorRef={editorRef} currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} docs={docs} fetchDoc={fetchDoc} saveDoc={saveDoc} setPopup={setPopup} />
 
       <form className='documentTitle'>
         <label htmlFor="documentTitle">Document Title</label>
@@ -77,8 +48,6 @@ export default function TextEditor({currentDoc, setCurrentDoc, docs, fetchDoc, s
             }}
           />
         </div>
-        
       </div>
     );
   }
-

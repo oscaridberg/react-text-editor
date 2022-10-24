@@ -7,7 +7,7 @@
 .appTitle {
     color: white;
     background-color:#282c34;
-    width: 100%;
+    /* width: 100%; */
     margin: 0;
     padding: 1rem;
     text-align: center;
@@ -21,7 +21,7 @@
     background-color:#282c34;
     height: 10vmin;
     display: flex;
-    padding: 1rem;
+    /* padding: 1rem; */
     margin-bottom: 20px;
     align-items: center;
     justify-content: space-evenly;
@@ -39,6 +39,8 @@
     border: none;
 }
 
+
+
 .saveButton:hover {
     cursor: pointer;
     background-color: rgb(255, 255, 163);
@@ -50,6 +52,24 @@
     box-shadow:         inset 0 0 1px #000000;
 }
 
+.printButton {
+    background-color: cornflowerblue;
+    border-radius: 25px;
+    width: 12rem;
+    height: 3rem;
+    border: none;
+}
+
+.printButton:hover {
+    cursor: pointer;
+    background-color: rgb(161, 186, 233)
+}
+
+.printButton:active {
+    -moz-box-shadow:    inset 0 0 1px #000000;
+    -webkit-box-shadow: inset 0 0 1px #000000;
+    box-shadow:         inset 0 0 1px #000000;
+}
 .documentTitle {
     /* background-color: red; */
     display: flex;
