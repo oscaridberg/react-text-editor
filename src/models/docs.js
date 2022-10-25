@@ -2,17 +2,6 @@ import config from '../config/config.json';
 
 
 const docs = {
-    // getAllDocs: async function getAllDocs (token, user) {
-    //     const response = await fetch(`${config.base_url}/documents`, {
-    //         headers: {
-    //             "x-access-token": token,
-    //         },
-    //     });
-    //     const result = await response.json();
-    //     console.log(result);
-    //     const filteredRes = await docs.filterDocs(result, user);
-    //     return filteredRes;
-    // },
 
     getAllDocs: async function getAllDocs (user) {
         const response = await fetch(`${config.base_url}/graphql`, {
@@ -46,7 +35,7 @@ const docs = {
         return currentDoc;
     },
 
-    saveDoc: async function saveDoc(title, content, token, user) {
+    saveDoc: async function saveDoc(title, content, token, user, isCode) {
         console.log(user);
         const request = {
             method: 'POST',
@@ -57,7 +46,8 @@ const docs = {
             body: JSON.stringify({
                 title: title, 
                 content: content,
-                user: user.email
+                user: user.email,
+                code: isCode
             })
         };
 

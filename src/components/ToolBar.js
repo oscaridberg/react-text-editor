@@ -1,18 +1,33 @@
 import React, { useRef } from 'react';
 
-export default function ToolBar({code, setCode, editorRef, currentDoc, setCurrentDoc, docs, fetchDoc, saveDoc, setPopup}) {
+export default function ToolBar({valueGetter, isEditorReady, setIsEditorReady, code, setCode, editorRef, currentDoc, setCurrentDoc, docs, fetchDoc, saveDoc, setPopup}) {
     
     const save = () => {
         if (editorRef.current) {
           const title = document.getElementById('documentTitle').value;
-          const content = editorRef.current.getContent();
-          saveDoc(title, content);
+          let content;
+
+          if (code) {
+            console.log('code doc');
+            content = valueGetter.current.getValue();
+            saveDoc(title, content, true);
+
+          } else {
+            content = editorRef.current.getContent();
+            saveDoc(title, content);
+          }
         }
       };
   
       function downloadDoc () {
-        const options = editorRef.current.ui.registry.getAll().menuItems
-        options.print.onAction();
+
+        if (code) {
+            console.log(valueGetter.current.getValue());
+        } else {
+            const options = editorRef.current.ui.registry.getAll().menuItems
+            options.print.onAction();
+        }
+   
   
   
   
@@ -48,11 +63,11 @@ export default function ToolBar({code, setCode, editorRef, currentDoc, setCurren
           <option></option>
           }
           </select>
-          <p>Code mode</p>
-          <label class="switch">
-            <input type="checkbox" onClick={toggleCodemode} />
-            <span class="slider round"></span>
-          </label>
+          {code ? 
+          <button className='printButton' onClick={toggleCodemode}>Text Mode</button>
+          :
+          <button className='printButton' onClick={toggleCodemode}>Code Mode</button>
+        }
         </div>
     );
 }

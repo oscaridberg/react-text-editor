@@ -3,12 +3,14 @@ import './style/TextEditor.css'
 import React, { useEffect } from 'react';
 import TextEditor from './components/TextEditor.js';
 import Login from './components/Login.js';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { io } from "socket.io-client";
 import config from './config/config.json';
 import authModel from './models/auth';
 import docsModel from './models/docs';
 import Email from './components/Email'
+import CodeEditor from './components/CodeEditor'
+import { Editor } from '@tinymce/tinymce-react';
 
 
 let socket;
@@ -24,6 +26,10 @@ function App() {
   const [user, setUser] = useState({});
   const [popup, setPopup] = useState(false);
   const [code, setCode] = useState(false);
+  const editorRef = useRef(null);
+  const codeRef = useRef(null);
+  const [isEditorReady, setIsEditorReady] = useState(false);
+  const valueGetter = useRef();
 
 
 
@@ -39,8 +45,8 @@ function App() {
     setCurrentDoc(doc);
   };
 
-  async function saveDoc(title, content) {
-    await docsModel.saveDoc(title, content, token, user);
+  async function saveDoc(title, content, isCode) {
+    await docsModel.saveDoc(title, content, token, user, isCode=false);
   }
 
   useEffect(() => {
@@ -82,7 +88,11 @@ function App() {
       <h1 className='appTitle'>React Text Editor</h1>
       {token ? 
       <>
-       <TextEditor code={code} setCode={setCode} currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} docs={docs} fetchDoc={fetchDoc} saveDoc={saveDoc} setPopup={setPopup} />
+        {code ?
+        <CodeEditor valueGetter={valueGetter} isEditorReady={isEditorReady} setIsEditorReady={setIsEditorReady} editorRef={editorRef} code={code} setCode={setCode} currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} docs={docs} fetchDoc={fetchDoc} saveDoc={saveDoc} setPopup={setPopup} />
+        :
+        <TextEditor valueGetter={valueGetter} isEditorReady={isEditorReady} setIsEditorReady={setIsEditorReady} editorRef={editorRef} code={code} setCode={setCode} currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} docs={docs} fetchDoc={fetchDoc} saveDoc={saveDoc} setPopup={setPopup} />
+      }
       </>
       :
       <Login setToken={setToken} user={user} setUser={setUser} />}

@@ -6,8 +6,7 @@ import { useState } from 'react';
 import ToolBar from './ToolBar';
 
 
-export default function TextEditor({code, setCode, currentDoc, setCurrentDoc, docs, fetchDoc, saveDoc, setPopup}) {
-    const editorRef = useRef(null);
+export default function TextEditor({valueGetter, isEditorReady, setIsEditorReady, editorRef, code, setCode, currentDoc, setCurrentDoc, docs, fetchDoc, saveDoc, setPopup}) {
 
     async function handleKeyUp(event) {
         setCurrentDoc({
@@ -19,7 +18,7 @@ export default function TextEditor({code, setCode, currentDoc, setCurrentDoc, do
 
     return (
       <div className="editorContainer">
-        <ToolBar code={code} setCode={setCode} editorRef={editorRef} currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} docs={docs} fetchDoc={fetchDoc} saveDoc={saveDoc} setPopup={setPopup} />
+        <ToolBar valueGetter={valueGetter} isEditorReady={isEditorReady} setIsEditorReady={setIsEditorReady} code={code} setCode={setCode} editorRef={editorRef} currentDoc={currentDoc} setCurrentDoc={setCurrentDoc} docs={docs} fetchDoc={fetchDoc} saveDoc={saveDoc} setPopup={setPopup} />
 
       <form className='documentTitle'>
         <label htmlFor="documentTitle">Document Title</label>
