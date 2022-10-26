@@ -5,9 +5,10 @@ import emailModel from '../models/email';
 
 export default function Email({setPopup}) {
     const [email, setEmail] = useState(null);
-
+    const [sent, setSent] = useState(false)
     function closePopup () {
         setPopup(false)
+        setSent(false);
     }
 
     function changeHandler (event) {
@@ -16,6 +17,7 @@ export default function Email({setPopup}) {
 
     async function sendEmail () {
         emailModel.sendEmail(email);
+        setSent(true);
     }
 
     return (
@@ -27,7 +29,11 @@ export default function Email({setPopup}) {
             <p className='loginTitle'>Email</p>
             <input type="email" name="email" onChange={changeHandler}></input>
         </div>
+        {sent ?
+        <p className='sentMessage'>Email Sent!</p>    
+        :
         <button className='registerButton' onClick={sendEmail}>Send invite</button>
+        }
         </div>
     </div>
     );
