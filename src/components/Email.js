@@ -5,9 +5,10 @@ import emailModel from '../models/email';
 
 export default function Email({setPopup}) {
     const [email, setEmail] = useState(null);
-    const [sent, setSent] = useState(false)
+    const [sent, setSent] = useState(false);
+
     function closePopup () {
-        setPopup(false)
+        setPopup(false);
         setSent(false);
     }
 
