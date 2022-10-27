@@ -27,13 +27,6 @@ export default function ToolBar({valueGetter, isEditorReady, setIsEditorReady, c
             const options = editorRef.current.ui.registry.getAll().menuItems
             options.print.onAction();
         }
-   
-  
-  
-  
-        // const Naomi = "Hi Naomi you're really cute"
-        // console.log(Naomi)
-        // const oscar="dundermifflinpaperco"
       };
   
       function displayPopup () {
